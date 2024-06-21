@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).send({
-    message: 'Hello World Updated!',
+    message: 'Hello World Updated! Test',
   });
 });
 
