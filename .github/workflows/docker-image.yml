@@ -1,5 +1,10 @@
 name: Docker Image CI
 
+env:
+  IMAGE_NAME: soundstalk
+  REGISTRY_NAME: soundstalk.azurecr.io
+  REGISTRY_USERNAME: ${{ secrets.ACR_USERNAME }}
+  REGISTRY_PASSWORD: ${{ secrets.ACR_PASSWORD }}
 on:
   push:
     branches: ['master']
@@ -13,14 +18,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      - name: Login to ACR
+        uses: azure/docker-login@v1
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          login-server: ${{ env.REGISTRY_NAME }}
+          username: ${{ env.REGISTRY_USERNAME }}
+          password: ${{ env.REGISTRY_PASSWORD }}
 
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/express-typescript-docker
+      - name: Build Docker image
+        run: docker build -t ${{ env.IMAGE_NAME }} .
 
-      - name: Docker Push
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/express-typescript-docker
+      - name: Tag Docker image
+        run: docker tag ${{ env.IMAGE_NAME }} ${{ env.REGISTRY_NAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Push Docker image to ACR
+        run: docker push ${{ env.REGISTRY_NAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
