@@ -1,8 +1,8 @@
 name: Docker Image CI
 
 env:
-  IMAGE_NAME: demodd
-  REGISTRY_NAME: demodd.azurecr.io
+  IMAGE_NAME: converttool
+  REGISTRY_NAME: converttool.azurecr.io
   REGISTRY_USERNAME: ${{ secrets.ACR_USERNAME }}
   REGISTRY_PASSWORD: ${{ secrets.ACR_PASSWORD }}
 on:

@@ -7,16 +7,18 @@ import multer from 'multer';
 import axios from 'axios';
 import fs from 'fs';
 import FormData from 'form-data';
+import rateLimitMiddleware from './middleware';
 
 const upload = multer({ dest: 'uploads/' });
 
 const PORT = process.env.PORT || 4000;
 const GOTENBERG_URL = process.env.GOTENBERG_URL || 'http://gotenberg:3000';
+
 const corsOptions = {
   origin: [/^http:\/\/localhost:6000$/, /(^|\.)sounds-talk\.com$/],
   optionsSuccessStatus: 200,
 };
-
+app.use(rateLimitMiddleware);
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
