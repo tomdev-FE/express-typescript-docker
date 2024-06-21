@@ -102,7 +102,7 @@ COPY . .
 Now let's expose the internal application port. Because by default, Docker images don't expose any port for security reasons.
 
 ```YAML
-EXPOSE 3000
+EXPOSE 4000
 ```
 
 ### Running the application
@@ -141,7 +141,7 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 4000
 
 RUN npm run build
 
@@ -191,15 +191,15 @@ express-typescript-docker                 latest                11b3fd2ab6d4   2
 Let's run our image inside a container by running the following command.
 
 ```sh
-docker run -p 3000:3000 -d express-typescript-docker:latest
+docker run -p 4000:4000 -d express-typescript-docker:latest
 ```
 
-Notice the **-p** option that maps the exposed docker port with our local machine port. In our **Dockerfile**, we exposed port 3000. And we mapped that same port to our machine.
+Notice the **-p** option that maps the exposed docker port with our local machine port. In our **Dockerfile**, we exposed port 4000. And we mapped that same port to our machine.
 
 If we want to run our application on port 4000 on our local machine, we can do this.
 
 ````sh
--p 4000:3000
+-p 4000:4000
 ```
 
 You can also pass environment variables into the container by passing **-e "NODE_ENV=production"** into the command.
@@ -213,7 +213,7 @@ docker ps
 
 
 CONTAINER ID   IMAGE                              COMMAND                  CREATED         STATUS         PORTS                              NAMES
-9be24fc778bb   express-typescript-docker:latest   "docker-entrypoint.s…"   8 seconds ago   Up 7 seconds   0.0.0.0:3000->3000/tcp, 8080/tcp   eager_bardeen
+9be24fc778bb   express-typescript-docker:latest   "docker-entrypoint.s…"   8 seconds ago   Up 7 seconds   0.0.0.0:4000->4000/tcp, 8080/tcp   eager_bardeen
 ````
 
 ### Test the endpoint
@@ -221,7 +221,7 @@ CONTAINER ID   IMAGE                              COMMAND                  CREAT
 Now go to your browser or some HTTP client like Postman and hit the following URL.
 
 ```
-http://localhost:3000
+http://localhost:4000
 ```
 
 and see the result
@@ -234,7 +234,7 @@ Also, you can see the logs inside the container by running the following command
 
 ```
 docker logs container_id
-Connected successfully on port 3000
+Connected successfully on port 4000
 { message: 'Hello World' }
 ```
 
@@ -284,9 +284,9 @@ services:
       - ./:/usr/src/app
     container_name: express-typescript-docker
     expose:
-      - '3000'
+      - '4000'
     ports:
-      - '3000:3000'
+      - '4000:4000'
     command: npm run dev
 ```
 
@@ -359,7 +359,7 @@ You can verify that the containers are running by running the following command
 docker ps
 ```
 
-Or by hitting the http://localhost:3000
+Or by hitting the http://localhost:4000
 
 ### Improvements
 

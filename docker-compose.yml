@@ -1,9 +1,15 @@
 version: '3'
 
 services:
+  gotenberg:
+    image: gotenberg/gotenberg:8.7.0
+    ports:
+      - 3000:3000
+
   express-typescript-docker:
     environment:
       - NODE_ENV=development
+      - GOTENBERG_URL=http://gotenberg:3000  # Add this environment variable
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -11,7 +17,9 @@ services:
       - ./:/usr/src/app
     container_name: express-typescript-docker
     expose:
-      - '3000'
+      - '4000'
     ports:
-      - '3000:3000'
+      - '4000:4000'
+    depends_on:
+      - gotenberg
     command: npm run dev
