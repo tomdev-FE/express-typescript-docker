@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 4000;
 const GOTENBERG_URL = process.env.GOTENBERG_URL || 'http://gotenberg:3000';
 
 const corsOptions = {
-  origin: [/^http:\/\/localhost:6000$/, /(^|\.)sounds-talk\.com$/],
+  origin: [/^http:\/\/localhost:3001$/, /(^|\.)sounds-talk\.com$/],
   optionsSuccessStatus: 200,
 };
 app.use(rateLimitMiddleware);
