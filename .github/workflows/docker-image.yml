@@ -1,8 +1,8 @@
 name: Docker Image CI
 
 env:
-  IMAGE_NAME: soundstalk
-  REGISTRY_NAME: soundstalk.azurecr.io
+  IMAGE_NAME: demodd
+  REGISTRY_NAME: demodd.azurecr.io
   REGISTRY_USERNAME: ${{ secrets.ACR_USERNAME }}
   REGISTRY_PASSWORD: ${{ secrets.ACR_PASSWORD }}
 on:
