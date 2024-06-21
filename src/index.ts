@@ -19,7 +19,7 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 app.use(rateLimitMiddleware);
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
